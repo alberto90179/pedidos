@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nota de Remisión de Pedido</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="remision-container">
+        <header>
+            <h1>Nota de Remisión</h1>
+            <p><strong>El Sazón de la Casa de Dios</strong></p>
+        </header>
+
+        <div class="info-pedido">
+            <p>Número de Pedido: <strong id="numero-pedido-display"></strong></p>
+        </div>
+
+        <div id="container-personas">
+            </div>
+
+        <button id="btn-agregar-persona">➕ Agregar Persona</button>
+
+        <div class="totales">
+            <div class="linea-total">
+                <span>TOTAL FINAL:</span>
+                <span id="total-final">$0.00</span>
+            </div>
+            <button id="btn-enviar-whatsapp">📲 Enviar Pedido por WhatsApp</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
