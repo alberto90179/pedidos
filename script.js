@@ -1,22 +1,21 @@
 // Objeto con los productos y sus precios.
 const productos = {
-    'Sope de pollo': 20.00,
-    'Sope de picadillo': 20.00,
-    'Enchilada de pollo': 20.00,
-    'Enchilada de picadillo': 20.00,
-    'Doradita de pollo': 30.00,
-    'Doradita de picadillo': 30.00,
-    'Pozole chico': 50.00,
-    'Pozole grande': 70.00,
-    'Taco dorado': 16.00,
-    'Tostada': 80.00,
-    'Refresco chico': 15.00,
-    'Refresco mediano': 25.00,
+    'sope de pollo': 20.00,
+    'sope de picadillo': 20.00,
+    'enchilada de pollo': 20.00,
+    'enchilada de picadillo': 20.00,
+    'doradita de pollo': 30.00,
+    'doradita de picadillo': 30.00,
+    'pozole chico': 50.00,
+    'pozole grande': 70.00,
+    'taco dorado': 16.00,
+    'tostada': 80.00,
+    'refresco cgico': 15.00,
+    'refresco mediano': 25.00,
     'Coca Cola': 30.00,
-    'Agua natural': 15.00,
-    'Agua medio': 25.00,
-    'Agua litro': 40.00,
-    'Cafe de Olla': 20.00,
+    'agua natural': 15.00,
+    'agua medio': 25.00,
+    'agua litro': 40.00
 };
 
 const containerPersonas = document.getElementById('container-personas');
@@ -179,6 +178,9 @@ function agregarPersona() {
     const nuevaPersona = document.createElement('div');
     nuevaPersona.classList.add('persona-orden');
 
+    // Generar un ID único para el tbody de esta persona
+    const tbodyId = `lista-productos-persona-${Date.now()}`;
+
     nuevaPersona.innerHTML = `
         <h3>Pedido de:</h3>
         <input type="text" class="nombre-persona" placeholder="Nombre de la persona">
@@ -193,7 +195,7 @@ function agregarPersona() {
                         <th>Eliminar</th>
                     </tr>
                 </thead>
-                <tbody class="lista-productos-persona">
+                <tbody id="${tbodyId}">
                 </tbody>
             </table>
             <button class="btn-agregar-orden">➕ Agregar Producto</button>
@@ -206,10 +208,15 @@ function agregarPersona() {
 
     containerPersonas.appendChild(nuevaPersona);
 
-    const tbody = nuevaPersona.querySelector('.lista-productos-persona');
+    // OBTENER EL TBODY ESPECÍFICO DE ESTA NUEVA PERSONA
+    const tbody = document.getElementById(tbodyId);
     const btnAgregarOrden = nuevaPersona.querySelector('.btn-agregar-orden');
 
+    // AGREGAR LA PRIMERA FILA DE PRODUCTO A ESTE TBODY
     agregarFilaProducto(tbody);
+
+    // ASIGNAR EL EVENT LISTENER AL BOTÓN 'AGREGAR PRODUCTO' DE ESTA PERSONA,
+    // PASÁNDOLE EL TBODY CORRECTO
     btnAgregarOrden.addEventListener('click', () => agregarFilaProducto(tbody));
 }
 
