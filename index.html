@@ -3,18 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nota de Remisión de Pedido</title>
-    <link rel="stylesheet" href="style.css">
-</head>
+    <title>Sistema de Pedidos</title>
+    <link rel="stylesheet" href="style.css"> </head>
 <body>
-    <div class="remision-container">
-        <header>
-            <h1>Nota de Remisión</h1>
-            <p><strong>El Sazón de la Casa de Dios</strong></p>
-        </header>
+    <div class="container">
+        <h1>Sistema de Pedidos</h1>
 
-        <div class="info-pedido">
-            <p>Número de Pedido: <strong id="numero-pedido-display"></strong></p>
+        <div class="header-pedido">
+            <span>Pedido #<span id="numero-pedido-display">0</span></span>
         </div>
 
         <div id="container-personas">
@@ -22,14 +18,22 @@
 
         <button id="btn-agregar-persona">➕ Agregar Persona</button>
 
-        <div class="totales">
-            <div class="linea-total">
-                <span>TOTAL FINAL:</span>
-                <span id="total-final">$0.00</span>
-            </div>
-            <button id="btn-enviar-whatsapp">📲 Enviar Pedido por WhatsApp</button>
+        <div class="total-final-container">
+            <p>Total Final: <span id="total-final">$0.00</span></p>
         </div>
+
+        <div class="opciones-entrega">
+            <label>
+                <input type="checkbox" id="checkbox-entrega-domicilio"> Entrega a Domicilio
+            </label>
+            <div id="container-datos-domicilio" style="display: none;">
+                <input type="text" id="input-direccion" placeholder="Dirección de entrega">
+                <input type="tel" id="input-telefono-contacto" placeholder="Teléfono de contacto">
+            </div>
+        </div>
+        <button id="btn-enviar-whatsapp">📲 Enviar Pedido por WhatsApp</button>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>

@@ -10,7 +10,7 @@ const productos = {
     'pozole grande': 70.00,
     'taco dorado': 16.00,
     'tostada': 80.00,
-    'refresco chico': 15.00,
+    'refresco cgico': 15.00,
     'refresco mediano': 25.00,
     'Coca Cola': 30.00,
     'agua natural': 15.00,
@@ -23,6 +23,13 @@ const btnAgregarPersona = document.getElementById('btn-agregar-persona');
 const btnEnviarWhatsapp = document.getElementById('btn-enviar-whatsapp');
 const totalFinalSpan = document.getElementById('total-final');
 const numeroPedidoDisplay = document.getElementById('numero-pedido-display');
+
+// Nuevas referencias para la entrega a domicilio
+const checkboxEntregaDomicilio = document.getElementById('checkbox-entrega-domicilio');
+const containerDatosDomicilio = document.getElementById('container-datos-domicilio');
+const inputDireccion = document.getElementById('input-direccion');
+const inputTelefonoContacto = document.getElementById('input-telefono-contacto');
+
 
 // Lógica para el folio secuencial
 function obtenerFolioActual() {
@@ -41,6 +48,12 @@ function reiniciarPedido() {
     totalFinalSpan.textContent = '$0.00'; // Reinicia el total final
     agregarPersona(); // Agrega una nueva persona para empezar el nuevo pedido
     numeroPedidoDisplay.textContent = obtenerFolioActual(); // Muestra el folio actual
+
+    // Reiniciar también los campos de entrega a domicilio
+    checkboxEntregaDomicilio.checked = false; // Desmarcar el checkbox
+    containerDatosDomicilio.style.display = 'none'; // Ocultar el contenedor de domicilio
+    inputDireccion.value = ''; // Limpiar campo de dirección
+    inputTelefonoContacto.value = ''; // Limpiar campo de teléfono
 }
 
 
@@ -204,6 +217,18 @@ function generarMensajeWhatsApp() {
     const pedidoNumero = numeroPedidoDisplay.textContent;
     let mensaje = `*Pedido # ${pedidoNumero}*\n\n`;
 
+    // Incluir datos de entrega a domicilio si está activo
+    if (checkboxEntregaDomicilio.checked) {
+        const direccion = inputDireccion.value.trim();
+        const telefono = inputTelefonoContacto.value.trim();
+        mensaje += `*ENTREGA A DOMICILIO*\n`;
+        mensaje += `*Dirección:* ${direccion || 'No especificada'}\n`;
+        mensaje += `*Teléfono:* ${telefono || 'No especificado'}\n\n`;
+    } else {
+        mensaje += `*Para recoger en local*\n\n`;
+    }
+
+
     const personas = document.querySelectorAll('.persona-orden');
     personas.forEach(persona => {
         const nombre = persona.querySelector('.nombre-persona').value || 'Sin nombre';
@@ -240,6 +265,20 @@ function generarMensajeWhatsApp() {
 
 // Asignar eventos
 btnAgregarPersona.addEventListener('click', agregarPersona);
+
+// Evento para mostrar/ocultar los campos de domicilio
+checkboxEntregaDomicilio.addEventListener('change', () => {
+    if (checkboxEntregaDomicilio.checked) {
+        containerDatosDomicilio.style.display = 'block';
+    } else {
+        containerDatosDomicilio.style.display = 'none';
+        // Opcional: limpiar los campos al ocultarlos
+        inputDireccion.value = '';
+        inputTelefonoContacto.value = '';
+    }
+});
+
+
 btnEnviarWhatsapp.addEventListener('click', () => {
     // Primero, genera y envía el mensaje de WhatsApp para el pedido ACTUAL
     const numeroWhatsApp = '3171012714';
